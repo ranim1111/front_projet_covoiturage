@@ -1,0 +1,180 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+
+/* General Reset */
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+
+/* Wrapper styles to keep sidebar and content aligned */
+#wrapper {
+    display: flex;
+    height: 80vh;
+    width: 100%;
+    overflow: hidden;
+}
+
+
+#sidebar::-webkit-scrollbar {
+    width: 0px;
+    /* Cache la barre de défilement sur Webkit (Chrome, Safari) */
+    background: transparent;
+    /* Assure qu'il n'y ait pas de barre visible */
+}
+
+/* Sidebar styles */
+#sidebar {
+    /* Permet le défilement vertical */
+    -ms-overflow-style: none;
+    /* Masque la barre de défilement sur IE et Edge */
+    scrollbar-width: none;
+    /* Masque la barre de défilement sur Firefox */
+    padding-top: 20px;
+    position: relative;
+    width: 250px;
+    background-color: #8fa1ae;
+    ;
+    /* Dark background */
+    padding-top: 20px;
+    position: fixed;
+    height: 100%;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 100;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+
+    /* White text color */
+}
+
+
+.sidebar-header {
+    padding: 20px;
+    background: #cad1d6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logosite {
+    max-width: 70px;
+    /* Adjust the size of the logo */
+    margin-right: 10px;
+    /* Space between logo and text */
+}
+
+h2 {
+    margin-bottom: 0;
+    /* Removes default margin below h2 */
+}
+
+#sidebar .components {
+    padding: 0;
+}
+
+#sidebar .components a {
+    padding: 15px;
+    font-size: 1.1em;
+    color: #131212;
+    /* Lighter gray text color */
+    text-decoration: none;
+    display: block;
+}
+
+#sidebar .components a:hover {
+    background: #07437f;
+    /* Darker hover background */
+    color: #fff;
+}
+
+#sidebar .components a:active {
+    background: #007bff;
+    /* Blue active background */
+    color: #fff;
+}
+
+
+/* Main Content area */
+#content {
+    margin-left: 250px;
+    padding: 20px;
+    height: 100vh;
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+/* Navbar styles */
+.navbar {
+    background-color: #d9dcdf;
+    /* Light background for navbar */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+    /* Light shadow */
+}
+
+.navbar .nav-item {
+    padding-left: 20px;
+}
+
+.navbar .navbar-light .navbar-nav .nav-link {
+    color: #02060a;
+    /* Dark text color */
+}
+
+.navbar .navbar-light .navbar-nav .nav-link:hover {
+    color: #007bff;
+    /* Blue color for hover effect */
+}
+
+.navbar .navbar-light .navbar-nav .nav-link:active {
+    color: #0056b3;
+    /* Darker blue for active state */
+}
+
+/* Dropdown menu */
+.navbar .dropdown-menu {
+    background-color: #ffffff;
+    /* White background for dropdown */
+    border-radius: 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+
+
+
+#settingsSubmenu li a {
+    padding-left: 40px;
+    /* Indent submenu items */
+}
+
+#settingsSubmenu li a:hover {
+    background-color: #007bff;
+    color: #0c0c0c;
+}
+
+.bi {
+    color: #084787;
+    transition: color 0.3s ease;
+}
+
+
+#sidebar {
+    height: 100vh;
+    /* Définit la hauteur de la sidebar à la hauteur totale de la fenêtre */
+    overflow-y: auto;
+    /* Ajoute un défilement vertical lorsque le contenu dépasse la hauteur */
+    padding-top: 20px;
+    /* Pour espacer le contenu du dessus */
+}
+
+
+
+li a:hover {
+    background-color: #575757;
+}
+
+#settingsSubmenu {
+    padding-left: 20px;
+}

@@ -1,0 +1,169 @@
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<div class="context">
+    <div class="container" [ngClass]="{'change': isSignup}">
+        <div class="forms-container">
+            <!-- Signup Form -->
+            <div class="form-control signup-form">
+                <form #signupForm="ngForm" (ngSubmit)="onSignup(signupForm)" novalidate>
+                    <h2>Signup</h2>
+                    <div class="input-row">
+                        <input type="text" placeholder="First Name" required [(ngModel)]="signupData.firstName"
+                            name="firstName" #firstName="ngModel"
+                            [ngClass]="{'is-invalid': firstName.invalid && firstName.touched}" />
+                        <!--<div *ngIf="firstName.invalid && firstName.touched" class="text-danger">
+                            First Name is required.
+                        </div>-->
+
+                        <input type="text" placeholder="Last Name" required [(ngModel)]="signupData.lastName"
+                            name="lastName" #lastName="ngModel"
+                            [ngClass]="{'is-invalid': lastName.invalid && lastName.touched}" />
+                        <!--<div *ngIf="lastName.invalid && lastName.touched" class="text-danger">
+                            Last Name is required.
+                        </div> -->
+                    </div>
+                    <div class="input-row">
+                        <input type="text" placeholder="Username" required [(ngModel)]="signupData.username"
+                            name="username" #username="ngModel"
+                            [ngClass]="{'is-invalid': username.invalid && username.touched}" />
+                        <!--<div *ngIf="username.invalid && username.touched" class="text-danger">
+                                Username is required.
+                            </div> -->
+
+                        <input type="email" placeholder="Email" required [(ngModel)]="signupData.email" name="email"
+                            #email="ngModel" [ngClass]="{'is-invalid': email.invalid && email.touched}" />
+
+                    </div>
+                    <div class="input-row">
+                        <input type="text" placeholder="Phone Number" required [(ngModel)]="signupData.phoneNumber"
+                            name="phone" #phone="ngModel" [ngClass]="{'is-invalid': phone.invalid && phone.touched}" />
+
+
+                        <input type="text" placeholder="City" required [(ngModel)]="signupData.ville" name="ville"
+                            #ville="ngModel" [ngClass]="{'is-invalid': ville.invalid && ville.touched}" />
+
+                    </div>
+                    <div class="input-row">
+                        <!-- Dropdown for Role -->
+                        <select name="role" required>
+                            <option value="" disabled selected>Select Role</option>
+                            <option value="passager">Passager</option>
+                            <option value="conducteur">Conducteur</option>
+                        </select>
+                    
+                        <!-- Dropdown for Status -->
+                        <select name="status" required>
+                            <option value="" disabled selected>Select Status</option>
+                            <option value="Etudiant">Étudiant</option>
+                            <option value="Personnel">Personnel</option>
+                            <option value="Enseignant">Enseignant</option>
+                        </select>
+                    </div>
+
+                    <div class="input-row">
+                        <input type="password" placeholder="Password" required [(ngModel)]="signupData.password"
+                            name="password" #password="ngModel"
+                            [ngClass]="{'is-invalid': password.invalid && password.touched}" />
+
+                        <input type="password" placeholder="Confirm password" required name="confirmPassword"
+                            [(ngModel)]="signupData.confirmPassword" #confirmPassword="ngModel"
+                            [ngClass]="{'is-invalid': confirmPassword.invalid && confirmPassword.touched || signupForm.submitted && signupData.password !== confirmPassword.value}" />
+
+
+
+
+                    </div>
+                    
+
+
+        <button type="submit">Signup</button>
+
+
+                </form>
+                
+
+            </div>
+
+            <!-- Signin Form -->
+            <div class="form-control signin-form">
+                <form #loginForm="ngForm" (ngSubmit)="onLogin(loginForm)" novalidate>
+                    <h2>Signin</h2>
+                    <input type="text" placeholder="Username" required [(ngModel)]="loginData.username" name="username"
+                        #username="ngModel" />
+                    <div *ngIf="username.invalid && (username.dirty || username.touched)" class="text-danger">
+                        Username is required.
+                    </div>
+                    <input type="password" placeholder="Password" required [(ngModel)]="loginData.password"
+                        name="password" #password="ngModel" />
+                    <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-danger">
+                        Password is required.
+                    </div>
+
+                    <button type="submit">Signin</button>
+                </form>
+                <a class="text-Forgotpassword" href="forgotpassword-page">Forgot password?</a>
+               
+            </div>
+
+        </div>
+        <div class="intros-container">
+            <div class="intro-control signin-intro">
+                <div class="intro-control__inner">
+                    <div class="">
+                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
+                            class="img-fluid" alt="Phone image" />
+                    </div>
+                    <button (click)="toggleForm()">No account yet? Signup.</button>
+                </div>
+            </div>
+            <div class="intro-control signup-intro">
+                <div class="intro-control__inner">
+                    <div class="">
+                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+                            class="img-fluid" alt="Sample image" />
+                    </div>
+                    <button (click)="toggleForm()">Already have an account? Signin.</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="area">
+
+    <ul class="circles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+
+
+<!-- Success Alert -->
+<div class="containeralert position-fixed bottom-0 end-0 p-3" style="z-index: 9999;">
+    <div *ngIf="signupSuccess" class="alert alert-success alert-dismissible d-flex align-items-center fade show"
+        role="alert">
+        <i class="bi bi-check-circle-fill me-2" style="font-size: 1.5rem;"></i>
+        <strong class="me-2">{{ loginmessage }}</strong> .
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+</div>
+<!-- Failure Alert -->
+<div class="containeralert position-fixed bottom-0 end-0 p-3" style="z-index: 9999;">
+    <div *ngIf="loginError" class="alert alert-danger alert-dismissible d-flex align-items-center fade show"
+        role="alert2">
+
+        <i class="bi-exclamation-octagon-fill me-2" style="font-size: 1.5rem;"></i>
+        <strong class="me-2">Error!</strong> {{ loginError }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+</div>
