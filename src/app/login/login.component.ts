@@ -1,14 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { NavbarComponent } from '../navbar/navbar.component';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import Swal from 'sweetalert2';
+
 
 @Component({
 selector: 'app-login',
 standalone: true,
-imports: [CommonModule,NavbarComponent,FormsModule,HttpClientModule],
+imports: [CommonModule,FormsModule,HttpClientModule],
 templateUrl: './login.component.html',
 styleUrl: './login.component.css'
 })
@@ -25,6 +26,8 @@ username: '',
 email: '',
 phoneNumber: '',
 ville: '',
+role: '',
+naturePersonne: '',
 password: '',
 confirmPassword:''
 
@@ -76,18 +79,25 @@ localStorage.setItem('id', id);
 
 
 
+Swal.fire({
+        icon: 'success',
+        title: 'Welcome back!',
+        text: `${username}`,
+        position: 'bottom-end',  // Position at the top-right corner
+        toast: true,          // Toast style (small popup)
+        showConfirmButton: false, // Hide the confirmation button
+        timer: 8000 ,          // Close after 3 seconds
+        background: '#eafaf1',
+      });
 
-const firstLogin = localStorage.getItem('firstLogin');
-if (firstLogin === 'true') {
-this.router.navigate(['/choose-page']);
-localStorage.removeItem('firstLogin');
-}else {
-if (userRole === 'EMPLOYER') {
-this.router.navigate(['/home-page-employer']);
-} else {
-this.router.navigate(['/']);
+if (userRole === 'CONDUCTEUR') {
+this.router.navigate(['/listetrajets']);
+} else if (userRole === 'ADMINISTATEUR'){
+this.router.navigate(['/dashboardadmin']);
+}else if(userRole === 'PASSAGER'){
+this.router.navigate(['/homepassager']);
 }
-}
+
 
 console.log('Login successful', response);
 
@@ -98,10 +108,19 @@ console.error('Login failed', error);
 const errorMessage = error.error || 'Login failed. Please check your credentials and try again.';
 this.loginError = errorMessage;
 setTimeout(() => this.loginError = null, 6000);
+Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: error.error,
+        position: 'top-end',
+        toast: true,
+        showConfirmButton: false,
+        timer: 3000
+      });
 }
 );
 }
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 onSignup(form: any) {
 console.log('Confirm Password:', this.confirmPassword);
 console.log('Password:', this.signupData.password);
@@ -119,11 +138,11 @@ this.loginError='Passwords do not match.';
 setTimeout(() => this.loginError = null, 6000);
 return;
 }
-this.http.post('http://localhost:8081/api/auth/addcandidate', this.signupData).subscribe(
+this.http.post('http://localhost:8081/api/auth/register', this.signupData).subscribe(
 (response) => {
 console.log('Signup successful', response);
 this.router.navigate(['/login-page']);
-localStorage.setItem('firstLogin', 'true');
+window.location.reload();
 this.signupSuccess = true;
 this.loginmessage = 'Signup successful !';
 setTimeout(() => this.signupSuccess = false, 6000);
@@ -134,6 +153,8 @@ username: '',
 email: '',
 phoneNumber: '',
 ville: '',
+role: '',
+naturePersonne: '',
 password: '',
 confirmPassword: ''
 };

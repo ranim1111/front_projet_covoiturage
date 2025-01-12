@@ -40,20 +40,48 @@
                             name="phone" #phone="ngModel" [ngClass]="{'is-invalid': phone.invalid && phone.touched}" />
 
 
-                        <input type="text" placeholder="City" required [(ngModel)]="signupData.ville" name="ville"
-                            #ville="ngModel" [ngClass]="{'is-invalid': ville.invalid && ville.touched}" />
+                        <!--<input type="text" placeholder="City" required [(ngModel)]="signupData.ville" name="ville"
+                            #ville="ngModel" [ngClass]="{'is-invalid': ville.invalid && ville.touched}" />-->
+                        <select name="ville" required [(ngModel)]="signupData.ville" class="selectville">
+                            <option value="" disabled selected>Select City</option>
+                        <option value="Ariana">Ariana</option>
+                        <option value="Béja">Béja</option>
+                        <option value="Ben Arous">Ben Arous</option>
+                        <option value="Bizerte">Bizerte</option>
+                        <option value="Gabès">Gabès</option>
+                        <option value="Gafsa">Gafsa</option>
+                        <option value="Jendouba">Jendouba</option>
+                        <option value="Kairouan">Kairouan</option>
+                        <option value="Kasserine">Kasserine</option>
+                        <option value="Kébili">Kébili</option>
+                        <option value="Le Kef">Le Kef</option>
+                        <option value="Mahdia">Mahdia</option>
+                        <option value="La Manouba">La Manouba</option>
+                        <option value="Médenine">Médenine</option>
+                        <option value="Monastir">Monastir</option>
+                        <option value="Nabeul">Nabeul</option>
+                        <option value="Sfax">Sfax</option>
+                        <option value="Sidi Bouzid">Sidi Bouzid</option>
+                        <option value="Siliana">Siliana</option>
+                        <option value="Sousse">Sousse</option>
+                        <option value="Tataouine">Tataouine</option>
+                        <option value="Tozeur">Tozeur</option>
+                        <option value="Tunis">Tunis</option>
+                        <option value="Zaghouan">Zaghouan</option>
 
+                        </select>
                     </div>
                     <div class="input-row">
                         <!-- Dropdown for Role -->
-                        <select name="role" required>
+                        <select name="role" required [(ngModel)]="signupData.role">
                             <option value="" disabled selected>Select Role</option>
                             <option value="passager">Passager</option>
                             <option value="conducteur">Conducteur</option>
                         </select>
+
                     
                         <!-- Dropdown for Status -->
-                        <select name="status" required>
+                        <select name="status" required [(ngModel)]="signupData.naturePersonne">
                             <option value="" disabled selected>Select Status</option>
                             <option value="Etudiant">Étudiant</option>
                             <option value="Personnel">Personnel</option>
@@ -84,8 +112,7 @@
                 
 
             </div>
-
-            <!-- Signin Form -->
+ <!----------------------------------------------------- Signin Form ------------------------------------------------------------------------>
             <div class="form-control signin-form">
                 <form #loginForm="ngForm" (ngSubmit)="onLogin(loginForm)" novalidate>
                     <h2>Signin</h2>
