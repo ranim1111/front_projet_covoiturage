@@ -1,13 +1,100 @@
-import { Component } from '@angular/core';
-import { LayoutconducteurComponent } from '../../layoutconducteur/layoutconducteur.component';
+import { Component, OnInit  } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { DatePipe } from '@angular/common';
+import { LayoutpasComponent } from '../../layoutpas/layoutpas.component';
+
 
 @Component({
   selector: 'app-listetrajets',
   standalone: true,
-  imports: [LayoutconducteurComponent],
+  imports: [LayoutpasComponent,FormsModule,CommonModule,DatePipe ],
   templateUrl: './listetrajets.component.html',
   styleUrl: './listetrajets.component.css'
 })
-export class ListetrajetsComponent {
+export class ListetrajetsComponent implements OnInit{
+private apiUrl = 'http://localhost:8081/api/trajets';
+  trajets: any[] = [];
+  searchTerm: string = '';
+  filteredData = [...this.trajets];
 
+  currentPage = 1;
+  pageSize = 2;
+  totalPages = Math.ceil(this.filteredData.length / this.pageSize);
+  pages = Array.from({ length: this.totalPages }, (_, i) => i + 1);
+
+  get startIndex() {
+    return (this.currentPage - 1) * this.pageSize;
+  }
+
+  get endIndex() {
+    return Math.min(this.startIndex + this.pageSize, this.filteredData.length);
+  }
+
+  get paginatedData() {
+    return this.filteredData.slice(this.startIndex, this.endIndex);
+  }
+
+  constructor(private http: HttpClient, private router: Router) {}
+
+  ngOnInit(): void {
+    this.loadTrajets();
+  }
+
+  private getAuthToken(): string | null {
+    return localStorage.getItem('authToken');
+  }
+
+  loadTrajets() {
+    const token = this.getAuthToken();
+
+    if (!token) {
+      alert('No token found. Please log in again.');
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    this.http.get<any[]>(this.apiUrl, { headers }).subscribe({
+      next: (response) => {
+        this.trajets = response;
+        this.filteredData = [...this.trajets];
+        console.log(response);
+        this.updatePagination();
+      },
+      error: (error) => {
+        console.error('Error fetching trajets:', error);
+        if (error.status === 401) {
+          alert('Session expired or unauthorized. Please log in again.');
+          this.router.navigate(['/login-page']);
+        }
+      }
+    });
+  }
+
+  onSearch() {
+    this.filteredData = this.trajets.filter(
+      (item) =>
+        item.depart.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        item.arrivee.toLowerCase().includes(this.searchTerm.toLowerCase()) || item.firstName.toLowerCase().includes(this.searchTerm.toLowerCase())|| item.lastName.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
+    this.updatePagination();
+  }
+
+  updatePagination() {
+    this.currentPage = 1;
+    this.totalPages = Math.ceil(this.filteredData.length / this.pageSize);
+    this.pages = Array.from({ length: this.totalPages }, (_, i) => i + 1);
+  }
+
+  goToPage(page: number) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+    }
+  }
 }

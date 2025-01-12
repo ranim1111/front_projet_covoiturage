@@ -11,6 +11,8 @@ import { LayoutconducteurComponent } from './layoutconducteur/layoutconducteur.c
 import { LayoutpasComponent } from './layoutpas/layoutpas.component';
 import { ListetrajetsComponent } from './trajets/listetrajets/listetrajets.component';
 import { AuthGuard } from './auth.guard';
+import { ProfileconducteurComponent } from './profileconducteur/profileconducteur.component';
+import { ProfilepasComponent } from './profilepas/profilepas.component';
 
 export const routes: Routes = [
     {path: '', component: HomeComponent},
@@ -24,4 +26,6 @@ export const routes: Routes = [
     {path: 'layoutpasager', component: LayoutpasComponent},
     {path: 'layoutconducteur', component: LayoutconducteurComponent},
     {path: 'listetrajets', component: ListetrajetsComponent},
+    {path: 'profilecond', component: ProfileconducteurComponent},
+    {path: 'profilepas', component: ProfilepasComponent},
 ];

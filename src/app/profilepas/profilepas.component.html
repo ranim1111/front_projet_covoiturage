@@ -1,0 +1,96 @@
+<app-layoutpas></app-layoutpas>
+
+
+<div class="nameprofile grid grid-cols-1 grid-rows-1 bg-gray-200">
+
+    <!-- Profile Picture Section -->
+    <div class="md:col-span-1 h-48 shadow-xs">
+        <div class="flex w-full h-full relative">
+            <!-- Reduced image size -->
+            <img src="https://res.cloudinary.com/dboafhu31/image/upload/v1625318266/imagen_2021-07-03_091743_vtbkf8.png"
+                class="w-32 h-32 m-auto" alt="Profile Picture"> <!-- Smaller width & height -->
+        </div>
+
+    </div>
+
+    <!-- Profile Information Section -->
+    <div class="data md:col-span-3 h-48 shadow-xl p-4 space-y-2 p-3 bg-gray-200"
+        style="height: 320px;margin-top: 180px;">
+
+        <!-- Name -->
+        <div class="flex">
+            <span
+                class="text-sm border bg-blue-50 font-bold uppercase border-2 rounded-l px-4 py-2 bg-gray-50 whitespace-no-wrap w-2/6">Name:</span>
+            <input
+                class="px-4 border-l-0 cursor-default border-gray-300 focus:outline-none rounded-md rounded-l-none shadow-sm -ml-1 w-4/6"
+                type="text" [value]="userProfile?.firstName + ' ' + userProfile?.lastName || 'Loading...'" readonly />
+        </div>
+        <div class="flex">
+            <span
+                class="text-sm border bg-blue-50 font-bold uppercase border-2 rounded-l px-4 py-2 bg-gray-50 whitespace-no-wrap w-2/6">Username:</span>
+            <input
+                class="px-4 border-l-0 cursor-default border-gray-300 focus:outline-none rounded-md rounded-l-none shadow-sm -ml-1 w-4/6"
+                type="text" [value]="userProfile?.username || 'Loading...'" readonly />
+        </div>
+
+        <!-- Email -->
+        <div class="flex">
+            <span
+                class="text-sm border bg-blue-50 font-bold uppercase border-2 rounded-l px-4 py-2 bg-gray-50 whitespace-no-wrap w-2/6">Email:</span>
+            <input
+                class="px-4 border-l-0 cursor-default border-gray-300 focus:outline-none rounded-md rounded-l-none shadow-sm -ml-1 w-4/6"
+                type="text" [value]="userProfile?.email || 'Loading...'" readonly />
+        </div>
+
+        <!-- Phone Number -->
+        <div class="flex">
+            <span
+                class="text-sm border bg-blue-50 font-bold uppercase border-2 rounded-l px-4 py-2 bg-gray-50 whitespace-no-wrap w-2/6">Phone
+                Number:</span>
+            <input
+                class="px-4 border-l-0 cursor-default border-gray-300 focus:outline-none rounded-md rounded-l-none shadow-sm -ml-1 w-4/6"
+                type="text" [value]="userProfile?.phonenumber || 'Loading...'" readonly />
+        </div>
+
+        <!-- Status -->
+        <div class="flex">
+            <span
+                class="text-sm border bg-blue-50 font-bold uppercase border-2 rounded-l px-4 py-2 bg-gray-50 whitespace-no-wrap w-2/6">Status:</span>
+            <input
+                class="px-4 border-l-0 cursor-default border-gray-300 focus:outline-none rounded-md rounded-l-none shadow-sm -ml-1 w-4/6"
+                type="text" [value]="userProfile?.naturePersonne || 'Loading...'" readonly />
+        </div>
+        <div class="flex">
+            <span
+                class="text-sm border bg-blue-50 font-bold uppercase border-2 rounded-l px-4 py-2 bg-gray-50 whitespace-no-wrap w-2/6">City:</span>
+            <input
+                class="px-4 border-l-0 cursor-default border-gray-300 focus:outline-none rounded-md rounded-l-none shadow-sm -ml-1 w-4/6"
+                type="text" [value]="userProfile?.ville || 'Loading...'" readonly />
+        </div>
+        <!-- Role -->
+        <div class="flex">
+            <span
+                class="text-sm border bg-blue-50 font-bold uppercase border-2 rounded-l px-4 py-2 bg-gray-50 whitespace-no-wrap w-2/6">Role:</span>
+            <input
+                class="px-4 border-l-0 cursor-default border-gray-300 focus:outline-none rounded-md rounded-l-none shadow-sm -ml-1 w-4/6"
+                type="text" [value]="userProfile?.role.name || 'Loading...'" readonly />
+        </div>
+
+        <br />
+        <div class="actionbuttons">
+
+
+
+            <button type="button" (click)="onUpdateProfile()"
+                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                <svg class="w-3.5 h-3.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="white"
+                    viewBox="0 0 18 21">
+                    <path
+                        d="M15 12a1 1 0 0 0 .962-.726l2-7A1 1 0 0 0 17 3H3.77L3.175.745A1 1 0 0 0 2.208 0H1a1 1 0 0 0 0 2h.438l.6 2.255v.019l2 7 .746 2.986A3 3 0 1 0 9 17a2.966 2.966 0 0 0-.184-1h2.368c-.118.32-.18.659-.184 1a3 3 0 1 0 3-3H6.78l-.5-2H15Z" />
+                </svg>
+                Update Account
+            </button>
+        </div>
+    </div>
+
+</div>

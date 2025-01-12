@@ -1,18 +1,18 @@
+import { LayoutpasComponent } from '../layoutpas/layoutpas.component';
 import { Component, OnInit } from '@angular/core';
 import { FooterComponent } from '../footer/footer.component';
-import { LayoutconducteurComponent } from '../layoutconducteur/layoutconducteur.component';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-profileconducteur',
+  selector: 'app-profilepas',
   standalone: true,
-  imports: [LayoutconducteurComponent,FooterComponent],
-  templateUrl: './profileconducteur.component.html',
-  styleUrl: './profileconducteur.component.css'
+  imports: [LayoutpasComponent,FooterComponent],
+  templateUrl: './profilepas.component.html',
+  styleUrl: './profilepas.component.css'
 })
-export class ProfileconducteurComponent  implements OnInit {
+export class ProfilepasComponent {
 private apiUrl = 'http://localhost:8081/api/auth';
 userProfile: any;
 roleChanged: boolean = false;
