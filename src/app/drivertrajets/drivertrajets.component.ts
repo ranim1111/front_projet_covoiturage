@@ -1,22 +1,19 @@
-import { Component, OnInit  } from '@angular/core';
+import { CommonModule, DatePipe } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { LayoutconducteurComponent } from '../layoutconducteur/layoutconducteur.component';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { DatePipe } from '@angular/common';
-import { LayoutpasComponent } from '../../layoutpas/layoutpas.component';
-import { LayoutconducteurComponent } from '../../layoutconducteur/layoutconducteur.component';
-
 
 @Component({
-  selector: 'app-listetrajets',
+  selector: 'app-drivertrajets',
   standalone: true,
-  imports: [LayoutpasComponent,FormsModule,CommonModule,DatePipe ],
-  templateUrl: './listetrajets.component.html',
-  styleUrl: './listetrajets.component.css'
+  imports: [LayoutconducteurComponent,FormsModule,CommonModule,DatePipe ],
+  templateUrl: './drivertrajets.component.html',
+  styleUrl: './drivertrajets.component.css'
 })
-export class ListetrajetsComponent implements OnInit{
-private apiUrl = 'http://localhost:8081/api/trajets';
+export class DrivertrajetsComponent  implements OnInit{
+ private apiUrl = 'http://localhost:8081/api/trajets/conducteur'; // Base URL with conducteur path
   trajets: any[] = [];
   searchTerm: string = '';
   filteredData = [...this.trajets];
@@ -50,9 +47,10 @@ private apiUrl = 'http://localhost:8081/api/trajets';
 
   loadTrajets() {
     const token = this.getAuthToken();
+    const driverId = localStorage.getItem('id'); // Directly getting driver ID from local storage
 
-    if (!token) {
-      alert('No token found. Please log in again.');
+    if (!token || !driverId) {
+      alert('Driver ID or token is missing. Please log in again.');
       this.router.navigate(['/login']);
       return;
     }
@@ -61,7 +59,7 @@ private apiUrl = 'http://localhost:8081/api/trajets';
       'Authorization': `Bearer ${token}`
     });
 
-    this.http.get<any[]>(this.apiUrl, { headers }).subscribe({
+    this.http.get<any[]>(`${this.apiUrl}/${driverId}`, { headers }).subscribe({
       next: (response) => {
         this.trajets = response;
         this.filteredData = [...this.trajets];
@@ -82,7 +80,9 @@ private apiUrl = 'http://localhost:8081/api/trajets';
     this.filteredData = this.trajets.filter(
       (item) =>
         item.depart.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-        item.arrivee.toLowerCase().includes(this.searchTerm.toLowerCase()) || item.firstName.toLowerCase().includes(this.searchTerm.toLowerCase())|| item.lastName.toLowerCase().includes(this.searchTerm.toLowerCase())
+        item.arrivee.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        item.firstName.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        item.lastName.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
     this.updatePagination();
   }

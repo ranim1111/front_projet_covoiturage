@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
   templateUrl: './profilepas.component.html',
   styleUrl: './profilepas.component.css'
 })
-export class ProfilepasComponent {
+export class ProfilepasComponent implements OnInit {
 private apiUrl = 'http://localhost:8081/api/auth';
 userProfile: any;
 roleChanged: boolean = false;
@@ -166,7 +166,7 @@ constructor(private http: HttpClient, private router: Router) {}
         <input id="phoneNumber" class="swal2-input" placeholder="Phone" value="${this.userProfile.phonenumber || ''}" style="width: 70%; height: 30px; font-size: 14px;">
         
        <label for="role">Role:</label>
-<select id="role" class="swal2-input" style="width: 70%; height: 30px; font-size: 14px;" (change)="onRoleChange($event)">
+<select id="role" class="swal2-input" style="width: 70%; height: 30px; font-size: 14px;" >
   <option value="CONDUCTEUR" [selected]="userProfile.role === 'CONDUCTEUR'">CONDUCTEUR</option>
   <option value="PASSAGER" [selected]="userProfile.role === 'PASSAGER'">PASSAGER</option>
 </select>
@@ -224,13 +224,9 @@ constructor(private http: HttpClient, private router: Router) {}
   }).then((result) => {
     if (result.isConfirmed) {
       const updatedProfile = result.value;
-        
-        // If the role changed, trigger logout
-        if (this.roleChanged) {
-          this.logout();
-        } else {
           this.updateProfile(updatedProfile);
-        }
+        
+       
       
     }
   });

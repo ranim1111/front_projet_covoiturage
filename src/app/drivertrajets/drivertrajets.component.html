@@ -1,0 +1,132 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<app-layoutconducteur></app-layoutconducteur>
+<div class="name max-w-[600px] mx-auto">
+
+    <a target='_blank' href='https://www.material-tailwind.com/docs/html/table'
+        class='block w-full px-4 py-2 text-center text-slate-900 transition-all '>
+        <b>Consult Your Rides'list!</b>
+    </a>
+
+    <div class="w-full flex justify-between items-center mb-3 mt-1 pl-3">
+        <div class="ml-3">
+            <div class="flex items-center justify-between p-4 bg-slate-50 border-b border-slate-200">
+                <p class="text-slate-500 text-xs">Overview of the rides you posted in CarSharing.</p>
+                <input type="text" [(ngModel)]="searchTerm" (input)="onSearch()" placeholder="Search..."
+                    class="w-full px-4 py-2 text-sm border rounded-lg focus:outline-none focus:ring focus:ring-blue-300" />
+            </div>
+
+            <!-- Table -->
+            <div class="overflow-x-auto" style="max-width: 800px; margin: 0 auto;">
+                <table class="tables w-full text-left table-auto min-w-max" style="width: 1000px;">
+                    <thead>
+                        <tr>
+                            
+                            <th class="p-4 border-b border-slate-200 bg-slate-50">
+                                <p class="text-sm font-normal leading-none text-slate-500">Departure</p>
+                            </th>
+                            <th class="p-4 border-b border-slate-200 bg-slate-50">
+                                <p class="text-sm font-normal leading-none text-slate-500">Arrival</p>
+                            </th>
+                            <th class="p-4 border-b border-slate-200 bg-slate-50">
+                                <p class="text-sm font-normal leading-none text-slate-500">Added On</p>
+                            </th>
+                            <th class="p-4 border-b border-slate-200 bg-slate-50">
+                                <p class="text-sm font-normal leading-none text-slate-500">Status</p>
+                            </th>
+                            <th class="p-4 border-b border-slate-200 bg-slate-50">
+                                <p class="text-sm font-normal leading-none text-slate-500">Distance (km)</p>
+                            </th>
+                            <th class="p-4 border-b border-slate-200 bg-slate-50">
+                                <p class="text-sm font-normal leading-none text-slate-500">Departure time</p>
+                            </th>
+                            <th class="p-4 border-b border-slate-200 bg-slate-50">
+                                <p class="text-sm font-normal leading-none text-slate-500">Estimated Arrival time</p>
+                            </th>
+                            <th class="p-4 border-b border-slate-200 bg-slate-50">
+                                <p class="text-sm font-normal leading-none text-slate-500">Price</p>
+                            </th>
+                            <th class="p-4 border-b border-slate-200 bg-slate-50">
+                                <p class="text-sm font-normal leading-none text-slate-500">Passengers list</p>
+                            </th>
+                            <th class="p-4 border-b border-slate-200 bg-slate-50">
+                                <p class="text-sm font-normal leading-none text-slate-500">Book the ride</p>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of paginatedData; let i = index"
+                            class="hover:bg-slate-50 border-b border-slate-200"
+                            [ngClass]="{'bg-gray-200': i % 2 === 0, 'bg-white': i % 2 !== 0}">
+                            
+                            <td class="p-4 py-5">
+                                <p class="text-sm text-slate-500">{{ item.depart }}</p>
+                            </td>
+                            <td class="p-4 py-5">
+                                <p class="text-sm text-slate-500">{{ item.arrivee }}</p>
+                            </td>
+                            <td class="p-4 py-5">
+                                <p class="text-sm text-slate-500">{{ item.dateCreation | date:'dd/MM/yyyy HH:mm' }}</p>
+                            </td>
+                            <td class="p-4 py-5">
+                                <p class="text-sm text-slate-500">{{ item.statut }}</p>
+                            </td>
+                            <td class="p-4 py-5">
+                                <p class="text-sm text-slate-500">{{ item.distance }} </p>
+                            </td>
+                            <td class="p-4 py-5">
+                                <p class="text-sm text-slate-500">{{ item.horaireDepart }} </p>
+                            </td>
+                            <td class="p-4 py-5">
+                                <p class="text-sm text-slate-500">{{ item.horaireArriveeEstimee }} </p>
+                            </td>
+                            <td class="p-4 py-5">
+                                <p class="text-sm text-slate-500">{{ item.tarif }} </p>
+                            </td>
+                            <td class="p-4 py-5">
+                                <p class="text-sm text-slate-500" *ngFor="let passenger of item.passagers">{{
+                                    passenger.firstName }} {{
+                                    passenger.lastName }}</p>
+
+                            </td>
+                            <td class="p-4 py-5">
+                                <button class="text-red-600 hover:text-red-600">
+                                    <i class="fa fa-minus-circle"></i> Delete
+                                </button>
+                            </td>
+                            <td class="p-4 py-5">
+                                <button class="text-blue-500 hover:text-blue-700">
+                                    <i class="fa fa-edit"></i> Update
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="flex justify-between items-center px-4 py-3">
+                <div class="text-sm text-slate-500">
+                    Showing <b>{{ startIndex + 1 }}</b> to <b>{{ endIndex }}</b> of <b>{{ filteredData.length }}</b>
+                </div>
+                <div class="flex space-x-1">
+                    <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1"
+                        class="px-3 py-1 min-w-9 min-h-9 text-sm font-normal text-slate-500 bg-white border border-slate-200 rounded hover:bg-slate-50 hover:border-slate-400 transition duration-200 ease">
+                        Prev
+                    </button>
+                    <button *ngFor="let page of pages" (click)="goToPage(page)"
+                        [class.bg-slate-800]="page === currentPage" [class.text-white]="page === currentPage"
+                        [class.text-slate-500]="page !== currentPage" [class.bg-white]="page !== currentPage"
+                        class="px-3 py-1 min-w-9 min-h-9 text-sm font-normal border border-slate-200 rounded hover:bg-slate-50 hover:border-slate-400 transition duration-200 ease">
+                        {{ page }}
+                    </button>
+                    <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages"
+                        class="px-3 py-1 min-w-9 min-h-9 text-sm font-normal text-slate-500 bg-white border border-slate-200 rounded hover:bg-slate-50 hover:border-slate-400 transition duration-200 ease">
+                        Next
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

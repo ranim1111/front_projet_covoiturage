@@ -95,7 +95,7 @@ this.router.navigate(['/listetrajets']);
 } else if (userRole === 'ADMINISTATEUR'){
 this.router.navigate(['/dashboardadmin']);
 }else if(userRole === 'PASSAGER'){
-this.router.navigate(['/homepassager']);
+this.router.navigate(['/homepas']);
 }
 
 

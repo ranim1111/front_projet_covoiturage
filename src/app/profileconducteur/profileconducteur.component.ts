@@ -225,13 +225,9 @@ constructor(private http: HttpClient, private router: Router) {}
     if (result.isConfirmed) {
       const updatedProfile = result.value;
         
-        // If the role changed, trigger logout
-        if (this.roleChanged) {
-          this.logout();
-        } else {
-          this.updateProfile(updatedProfile);
-        }
-      
+        
+        this.updateProfile(updatedProfile);
+        localStorage.setItem('role', updatedProfile.role);
     }
   });
 }
