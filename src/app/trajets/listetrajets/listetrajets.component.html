@@ -12,8 +12,21 @@
         <div class="ml-3">
             <div class="flex items-center justify-between p-4 bg-slate-50 border-b border-slate-200">
                 <p class="text-slate-500 text-xs">Overview of the rides list in CarSharing.</p>
-                <input type="text" [(ngModel)]="searchTerm" (input)="onSearch()" placeholder="Search..."
-                    class="w-full px-4 py-2 text-sm border rounded-lg focus:outline-none focus:ring focus:ring-blue-300" />
+                
+
+                    <input type="text" [(ngModel)]="filter.firstName" placeholder="firstName"
+                        class="w-full px-4 py-2 text-sm border rounded-lg focus:outline-none focus:ring focus:ring-blue-300" />
+                        <input type="text" [(ngModel)]="filter.lastName" placeholder="lastName"
+                            class="w-full px-4 py-2 text-sm border rounded-lg focus:outline-none focus:ring focus:ring-blue-300" />
+                    <input type="text" [(ngModel)]="filter.depart" placeholder="Depart"
+                        class="w-full px-4 py-2 text-sm border rounded-lg focus:outline-none focus:ring focus:ring-blue-300" />
+                    <input type="text" [(ngModel)]="filter.arrivee" placeholder="Arrivee"
+                        class="w-full px-4 py-2 text-sm border rounded-lg focus:outline-none focus:ring focus:ring-blue-300" />
+                    <input type="date" [(ngModel)]="filter.dateCreation" placeholder="Date Creation"
+                        class="w-full px-4 py-2 text-sm border rounded-lg focus:outline-none focus:ring focus:ring-blue-300" />
+                    
+                    <button (click)="applyFilters()">Apply Filters</button>
+                    <button (click)="resetFilters()">Reset Filters</button>
             </div>
 
             <!-- Table -->
